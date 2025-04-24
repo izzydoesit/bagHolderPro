@@ -1,6 +1,6 @@
 # 💼 BagHolder Pro — Real Tick Data, Unreal Confidence
 
-![UI Preview](https://raw.githubusercontent.com/izzydoesit/trading-terminal/main/public/preview.png)
+![UI Preview](/src/assets/bagHolderPro-wireframe.png)
 
 **A brutally honest trading terminal. For those who YOLO in public, and re-learn risk the hard way.**
 
