@@ -1,55 +1,38 @@
 import { useEffect } from 'react';
-import { create } from 'zustand';
-
-type TickerData = {
-    price: number;
-    volume: number;
-    bid: number;
-    ask: number;
-}
-
-type Order= {
-    price: number;
-    size: number;
-}
-
-type MarketStore = {
-    ticker: TickerData | null;
-    bids: Order[];
-    asks: Order[];
-    update: (ticker: TickerData) => void;
-    updateBook: (bids: Order[], asks: Order[]) => void;
-}
-
-export const useMarketStore = create<MarketStore>((set) => ({
-    ticker: null,
-    bids: [],
-    asks: [],
-    update: (ticker) => set({ ticker}),
-    updateBook: (bids, asks) => set({ bids, asks }),
-}))
+import { useMarketStore } from "@/stores/useMarketStore";
+import { MarketStoreState } from '../types/marketData';
 
 export function useMarketData() {
-    const update = useMarketStore((store) => store.update);
-    const updateBook = useMarketStore((store) => store.updateBook);
+    const updateTicker = useMarketStore((state: MarketStoreState) => state.updateTicker);
+    const updateBook = useMarketStore((state: MarketStoreState) => state.updateBook);
 
     useEffect(() => {
-        let socket: WebSocket | null = null; // Explicitly typed as WebSocket | null
-
-        // mocked for now TODO: use real socket
         const interval = setInterval(() => {
-            const mock = {
-                price: +(Math.random() * 100 + 100).toFixed(2),
-                volume: Math.floor(Math.random() * 1000),
-                bid: +(Math.random() * 5 + 95).toFixed(2),
-                ask: +(Math.random()* 5 + 105).toFixed(2),
-            };
-            update(mock);
-        }, 1000);
+            const price = +(100 + Math.random() * 2).toFixed(2);
 
-        return () => {
-            clearInterval(interval);
-            socket?.close();
-        }
-    }, [update]);
-}
+            
+            const mockTicker = {
+                symbol: 'AAPL',
+                price,
+                volume: Math.floor(1000 + Math.random() * 500),
+                bid: +(price - Math.random()).toFixed(2),
+                ask: +(price + Math.random()).toFixed(2),
+            };
+            
+            const mockBids = Array.from({ length: 5 }, (_, i) => ({
+                price: +(price - Math.random() * 1.5).toFixed(2),
+                size: Math.floor(5 + Math.random() * 10),
+            }));
+            
+            const mockAsks = Array.from({ length: 5 }, (_, i) => ({
+                price: +(price + Math.random() * 1.5).toFixed(2),
+                size: Math.floor(5 + Math.random() * 10),
+            }));
+            
+            updateTicker(mockTicker);
+            updateBook(mockBids, mockAsks);
+        }, 3000);
+
+        return () => clearInterval(interval);
+      }, [updateTicker, updateBook]);
+    }
