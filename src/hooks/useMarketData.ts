@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { create } from 'zustand';
 
 type TickerData = {
@@ -8,21 +8,33 @@ type TickerData = {
     ask: number;
 }
 
+type Order= {
+    price: number;
+    size: number;
+}
+
 type MarketStore = {
     ticker: TickerData | null;
+    bids: Order[];
+    asks: Order[];
     update: (ticker: TickerData) => void;
+    updateBook: (bids: Order[], asks: Order[]) => void;
 }
 
 export const useMarketStore = create<MarketStore>((set) => ({
     ticker: null,
-    update: (ticker) => set({ ticker})
+    bids: [],
+    asks: [],
+    update: (ticker) => set({ ticker}),
+    updateBook: (bids, asks) => set({ bids, asks }),
 }))
 
 export function useMarketData() {
     const update = useMarketStore((store) => store.update);
+    const updateBook = useMarketStore((store) => store.updateBook);
 
     useEffect(() => {
-        let socket: WebSocket | null = null;
+        let socket: WebSocket | null = null; // Explicitly typed as WebSocket | null
 
         // mocked for now TODO: use real socket
         const interval = setInterval(() => {
