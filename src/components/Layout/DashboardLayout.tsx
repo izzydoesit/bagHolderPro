@@ -1,4 +1,5 @@
-import MockStockTicker from "@/mock/MockStockTicker";
+import MockStockTicker from "@/mocks/MockStockTicker";
+import TradePanel from "@/components/TradePanel/TradePanel";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -14,7 +15,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </main>
 
       <footer className="bg-gray-900 p-4 rounded-lg text-center">
-        🛒 Trade Panel (Buy/Sell)
+        <TradePanel />
       </footer>
     </div>
   );
