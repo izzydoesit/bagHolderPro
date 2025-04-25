@@ -1,17 +1,19 @@
 import { useMarketData } from './hooks/useMarketData'
-import { MarketTicker } from './mock/MarketTicker';
+import DashboardLayout from './components/Layout/DashboardLayout';
+// import TradingChart from './components/TradingChart/TradingChart';
 import OrderBook from './components/OrderBook/OrderBook';
+// import AccountPanel from './components/AccountPanel/AccountPanel';
 import './App.css'
 
 function App() {
   useMarketData();
 
   return (
-    <div className="p-8 text-white bg-black min-h-screen">
-      <h1 className="text-4xl font-bold mb-4">🧠 Trading Dashboard</h1>
-      <MarketTicker />
+    <DashboardLayout>
+      {/* <TradingChart /> placeholder for now */}
       <OrderBook />
-    </div>
+      {/* <AccountPanel /> placeholder for now */}
+    </DashboardLayout>
   );
 }
 
