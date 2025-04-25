@@ -13,6 +13,9 @@ const mockOrderBook = {
   ],
 };
 
+const maxBidSize = Math.max(...mockOrderBook.bids.map(b => b.size));
+const maxAskSize = Math.max(...mockOrderBook.asks.map(a => a.size));
+
 export default function OrderBook() {
   return (
     <div className="grid grid-cols-2 gap-4">
@@ -20,7 +23,7 @@ export default function OrderBook() {
         <h2 className="text-xl font-semibold mb-2">Bids</h2>
         <div className="space-y-1">
           {mockOrderBook.bids.map((bid, i) => (
-            <OrderRow key={i} price={bid.price} size={bid.size} type="bid" />
+            <OrderRow key={i} {...bid} type="bid" maxSize={maxBidSize} />
           ))}
         </div>
       </div>
@@ -28,7 +31,7 @@ export default function OrderBook() {
         <h2 className="text-xl font-semibold mb-2">Asks</h2>
         <div className="space-y-1">
           {mockOrderBook.asks.map((ask, i) => (
-            <OrderRow key={i} price={ask.price} size={ask.size} type="ask" />
+            <OrderRow key={i} {...ask} type="ask" maxSize={maxAskSize} />
           ))}
         </div>
       </div>
