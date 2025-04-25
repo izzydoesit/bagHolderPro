@@ -7,7 +7,7 @@ interface OrderRowProps {
 
 export default function OrderRow({ price, size, type, maxSize }: OrderRowProps) {
     const barWidth = `${(size / maxSize) *100}%`
-    const barColor = type === "bid" ? "bg-green-700" : "bg-red-700";
+    const barColor = type === "bid" ? "bg-green-800" : "bg-red-800";
 
      return (
         <div className="relative flex justify-between p-2 rounded-md overflow-hidden text-sm font-mono">
