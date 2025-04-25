@@ -1,22 +1,13 @@
-import { create } from "zustand";
+import { create } from 'zustand';
+import { Order, MarketStoreState } from '@/types/marketData';
+import { TickerData } from '@/types/tickerData';
 
-type MarketState = {
-  prices: Record<string, number>; // e.g., { AAPL: 187.23 }
+export const useMarketStore = create<MarketStoreState>((set) => ({
+  ticker: null,
   orderBook: {
-    bids: [number, number][],
-    asks: [number, number][],
-  };
-  updatePrice: (symbol: string, price: number) => void;
-  updateOrderBook: (bids: [number, number][], asks: [number, number][]) => void;
-};
-
-export const useMarketStore = create<MarketState>((set) => ({
-  prices: {},
-  orderBook: { bids: [], asks: [] },
-  updatePrice: (symbol, price) =>
-    set((state) => ({
-      prices: { ...state.prices, [symbol]: price },
-    })),
-  updateOrderBook: (bids, asks) =>
-    set(() => ({ orderBook: { bids, asks } })),
+    bids: [],
+    asks: [],
+  },
+  updateTicker: (ticker: TickerData) => set({ ticker }),
+  updateBook: (bids: Order[], asks: Order[]) => set({ orderBook: { bids, asks } }),
 }));
