@@ -1,7 +1,7 @@
 import { useMarketData } from './hooks/useMarketData'
 import DashboardLayout from './components/Layout/DashboardLayout';
+import MockOrderBook from '@/mocks/MockOrderBook';
 // import TradingChart from './components/TradingChart/TradingChart';
-import OrderBook from './components/OrderBook/OrderBook';
 // import AccountPanel from './components/AccountPanel/AccountPanel';
 import './App.css'
 
@@ -11,7 +11,7 @@ function App() {
   return (
     <DashboardLayout>
       {/* <TradingChart /> placeholder for now */}
-      <OrderBook />
+      <MockOrderBook />
       {/* <AccountPanel /> placeholder for now */}
     </DashboardLayout>
   );
