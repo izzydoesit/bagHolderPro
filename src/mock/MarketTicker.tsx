@@ -1,7 +1,11 @@
 import { useMarketStore } from '@/hooks/useMarketData';
+import { MarketStore } from '@/stores/useMarketStore';
+
+
+
 
 export function MarketTicker() {
-    const ticker = useMarketStore((store) => store.ticker);
+    const ticker: Ticker | null = useMarketStore((store: MarketStore) => store.ticker);
 
     if (!ticker) {
         return <div className="text-sm text-gray-400">Loading data...</div>
