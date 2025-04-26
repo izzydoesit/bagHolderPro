@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useOrders } from "@/hooks/useOrders";
-import { Input } from "@/components/ui/input";
-import { Card } from "@/components/ui/card";
-import { CardContent } from "@/components/ui/cardcontent";
-import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/Input";
+import { Card } from "@/components/ui/Card";
+import { CardContent } from "@/components/ui/CardContent";
+import { Button } from "@/components/ui/Button";
 import { Trade } from "@/types/accountData";
-import { Order } from "@/types/marketData";
 
 export default function TradePanel() {
   const { placeOrder, getOpenOrders } = useOrders();
@@ -15,7 +14,7 @@ export default function TradePanel() {
   const [side, setSide] = useState<"buy" | "sell">("buy");
 
   const handleTrade = () => {
-    if (!price || !size) return;
+    if (!price || !size || !symbol) return;
 
     const order: Trade = {
       symbol,
@@ -33,58 +32,68 @@ export default function TradePanel() {
   const openOrders = getOpenOrders();
 
   return (
-    <Card className="bg-gray-900 border-gray-700 text-white">
-        <div className="text-lg font-semibold text-center">🛒 Trade Panel (Buy/Sell)</div>
+    <Card className="bg-zinc-900 border border-zinc-700 text-white p-4">
+      <div className="text-lg font-semibold text-center mb-4">
+        🛒 Trade Panel
+      </div>
 
-        <CardContent className="p-4 space-y-4">
-            <div className="flex gap-2">
-            <div className="flex flex-col md:flex-row items-center gap-2">
+      <CardContent className="space-y-4">
+        <div className="flex flex-col space-y-2">
+          <Input
+            className="bg-black text-white text-sm px-2 py-1"
+            value={symbol}
+            onChange={(e) => setSymbol(e.target.value.toUpperCase())}
+            placeholder="Symbol"
+            maxLength={5}
+          />
+          <Input
+            className="bg-black text-white text-sm px-2 py-1"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            placeholder="Price"
+            maxLength={6}
+          />
+          <Input
+            className="bg-black text-white text-sm px-2 py-1"
+            value={size}
+            onChange={(e) => setSize(e.target.value)}
+            placeholder="Quantity"
+            maxLength={5}
+          />
+        </div>
 
-                </div>
-                <Input
-                    className="bg-black text-white"
-                    value={symbol}
-                    onChange={(e) => setSymbol(e.target.value.toUpperCase())}
-                    placeholder="Symbol"
-                />
-                <Input
-                    className="bg-black text-white"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    placeholder="Price"
-                />
-                <Input
-                    className="bg-black text-white"
-                    value={size}
-                    onChange={(e) => setSize(e.target.value)}
-                    placeholder="Quantity"
-                />
-                <div className="flex gap-2">
-                    <Button variant="success" onClick={() => setSide("buy")} className={side === "buy" ? "bg-green-600" : ""}>
-                        Buy
-                    </Button>
-                    <Button variant="destructive" onClick={() => setSide("sell")} className={side === "sell" ? "bg-red-600" : ""}>
-                        Sell
-                    </Button>
-                    <Button variant="default" onClick={handleTrade}>
-                        Submit
-                    </Button>
-                </div>
-            </div>
+        <div className="flex gap-2 justify-center">
+          <Button
+            variant="default"
+            onClick={() => setSide("buy")}
+            className={`w-14 text-sm ${side === "buy" ? "bg-green-600" : ""} hover:bg-green-700`}
+          >
+            Buy
+          </Button>
+          <Button
+            variant="destructive"
+            onClick={() => setSide("sell")}
+            className={`w-14 text-sm ${side === "sell" ? "bg-red-600" : ""} hover:bg-red-700`}
+          >
+            Sell
+          </Button>
+          <Button variant="default" onClick={handleTrade} className="w-19 text-sm">
+            Submit
+          </Button>
+        </div>
 
-
-
-            <div className="text-sm pt-2">
-                <h3 className="font-semibold">📋 Open Orders</h3>
-                <ul className="text-zinc-300">
-                    {openOrders.map((order: Order, i: number) => (
-                        <li key={i}>
-                            [{new Date(order.timestamp).toLocaleTimeString()}] {order.side.toUpperCase()} {order.size} {order.symbol} @ ${order.price}
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        </CardContent>
+        <div className="text-sm pt-4">
+          <h3 className="font-semibold text-zinc-200 mb-2">📋 Open Orders</h3>
+          <ul className="space-y-1 text-zinc-400">
+            {openOrders.map((order, i) => (
+              <li key={i}>
+                [{new Date(order.timestamp).toLocaleTimeString()}]{" "}
+                {order.side.toUpperCase()} {order.size} {order.symbol} @ ${order.price}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </CardContent>
     </Card>
   );
 }
