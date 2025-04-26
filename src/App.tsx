@@ -1,19 +1,12 @@
 import { useMarketData } from './hooks/useMarketData'
-import DashboardLayout from './components/Layout/DashboardLayout';
-import MockOrderBook from '@/mocks/MockOrderBook';
-// import TradingChart from './components/TradingChart/TradingChart';
-// import AccountPanel from './components/AccountPanel/AccountPanel';
+import AppLayout from './components/Layout/AppLayout';
 import './App.css'
 
 function App() {
   useMarketData();
 
   return (
-    <DashboardLayout>
-      {/* <TradingChart /> placeholder for now */}
-      <MockOrderBook />
-      {/* <AccountPanel /> placeholder for now */}
-    </DashboardLayout>
+    <AppLayout />
   );
 }
 
