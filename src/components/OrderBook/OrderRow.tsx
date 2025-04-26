@@ -1,8 +1,8 @@
 interface OrderRowProps {
     price: number;
     size: number;
-    maxSize: number;
     type: "bid" | "ask";
+    maxSize: number;
 }
 
 export default function OrderRow({ price, size, type, maxSize }: OrderRowProps) {
