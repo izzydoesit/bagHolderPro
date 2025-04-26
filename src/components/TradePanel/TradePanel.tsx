@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useOrders } from "@/hooks/useOrders";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
+import { CardContent } from "@/components/ui/cardcontent";
+import { Button } from "@/components/ui/button";
 import { Trade } from "@/types/accountData";
 import { Order } from "@/types/marketData";
 
@@ -37,6 +38,9 @@ export default function TradePanel() {
 
         <CardContent className="p-4 space-y-4">
             <div className="flex gap-2">
+            <div className="flex flex-col md:flex-row items-center gap-2">
+
+                </div>
                 <Input
                     className="bg-black text-white"
                     value={symbol}
@@ -53,21 +57,22 @@ export default function TradePanel() {
                     className="bg-black text-white"
                     value={size}
                     onChange={(e) => setSize(e.target.value)}
-                    placeholder="Size"
+                    placeholder="Quantity"
                 />
+                <div className="flex gap-2">
+                    <Button variant="success" onClick={() => setSide("buy")} className={side === "buy" ? "bg-green-600" : ""}>
+                        Buy
+                    </Button>
+                    <Button variant="destructive" onClick={() => setSide("sell")} className={side === "sell" ? "bg-red-600" : ""}>
+                        Sell
+                    </Button>
+                    <Button variant="default" onClick={handleTrade}>
+                        Submit
+                    </Button>
+                </div>
             </div>
 
-            <div className="flex gap-2">
-                <Button variant="secondary" onClick={() => setSide("buy")} className={side === "buy" ? "bg-green-600" : ""}>
-                    Buy
-                </Button>
-                <Button variant="secondary" onClick={() => setSide("sell")} className={side === "sell" ? "bg-red-600" : ""}>
-                    Sell
-                </Button>
-                <Button variant="default" onClick={handleTrade}>
-                    Submit
-                </Button>
-            </div>
+
 
             <div className="text-sm pt-2">
                 <h3 className="font-semibold">📋 Open Orders</h3>
