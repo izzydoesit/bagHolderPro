@@ -44,12 +44,12 @@ export default function CandlestickChart() {
     chart: {
       type: 'candlestick',
       height: 350,
-      background: '#000',
+      background: '#1f2937',  // Dark slate background, prev. #000
       toolbar: { show: false },
     },
     xaxis: {
       type: 'datetime',
-      labels: { style: { colors: '#fff' } },
+      labels: { style: { colors: '#fff' } }, 
     },
     yaxis: {
       tooltip: { enabled: true },
