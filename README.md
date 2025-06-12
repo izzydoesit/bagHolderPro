@@ -1,15 +1,17 @@
 # 💼 BagHolder Pro — Real Tick Data, Unreal Confidence
 
-![UI Preview](https://raw.githubusercontent.com/izzydoesit/trading-terminal/main/public/preview.png)
+![UI Preview](/src/assets/images/ui-preview.png)
 
 **A brutally honest trading terminal. For those who YOLO in public, and re-learn risk the hard way.**
 
 ## 🚀 Features
 - Live streaming market data (WebSocket or mock)
+- Real-time candlestick chart with overlays
 - Realistic bid/ask order book
 - Simulated trade execution engine
-- Your portfolio, live PnL, and positions panel
+- Your portfolio, account balances, live PnL and positions tracking
 - Beautiful responsive UI built with React + Tailwind + shadcn/ui
+
 
 ## 🛠️ Tech Stack
 - React + Vite
