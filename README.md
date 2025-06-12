@@ -1,8 +1,8 @@
 # 💼 BagHolder Pro — Real Tick Data, Unreal Confidence
-
-![UI Preview](/src/assets/images/ui-preview.png)
-
 **A brutally honest trading terminal. For those who YOLO in public, and re-learn risk the hard way.**
+
+## Preview 
+![UI Preview](/src/assets/images/ui-preview.png)
 
 ## 🚀 Features
 - Live streaming market data (WebSocket or mock)
